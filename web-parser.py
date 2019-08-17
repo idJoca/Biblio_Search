@@ -17,9 +17,9 @@ HEADERS = {'Connection': 'keep-alive','Cache-Control': 'max-age=0',
            'Host': 'www.biblioceeteps.com.br',
            'Referer': 'http://www.biblioceeteps.com.br/'}
 # The URL used to download the page and parse it
-URL = "http://www.biblioceeteps.com.br/acervo/documento/detalhes/141219"
+URL = sys.argv[1]
 # If sys args is longer than 2, a header was sent
-if (len(sys.argv) > 2):
+if (len(sys.argv) > 1):
     # Uses the new header
     HEADERS = sys.argv[2]
 
