@@ -18,7 +18,7 @@ HEADERS = {'Connection': 'keep-alive','Cache-Control': 'max-age=0',
            'Referer': 'http://www.biblioceeteps.com.br/'}
 # The URL used to download the page and parse it
 URL = sys.argv[1]
-# If sys args is longer than 2, a header was sent
+# If sys args is longer than 2 then, a header was sent
 if (len(sys.argv) > 1):
     # Uses the new header
     HEADERS = sys.argv[2]
@@ -33,7 +33,7 @@ def recover_page(url, headers):
     # Executes the get protocol
     response = requests.get(url, headers=headers, stream=True)
     # If, for some reason, the returned status code
-    # Is not 200, raise an exception
+    # It's not 200, raise an exception
     if (response.status_code != 200):
         # Custom exception
         raise HttpStatusCodeError("Error recovering page")
@@ -57,15 +57,24 @@ def recover_element(parsed_html, search_attrs, wanted_attr=None):
     Keep in mind that the element is assumed to not be
     an attribute, but rather actual data. Also, any
     other tag is ignored.
-    If you need to recover an attribute, just pass the
+    If you need to recover an attribute, also pass the
     'wanted_attr' variable.
     """
+    # Look for the attributes in the html code
     whole_tag = parsed_html.find(attrs=search_attrs)
+    # If 'wanted_attr' was passed, just return
+    # it's value within the tag
     if (wanted_attr is not None):
         return whole_tag.attrs[wanted_attr]
     else:
+        # If not, search over the children
+        # for an element that is not an actual tag
         for element in whole_tag.children:
+            # If the element do not contains
+            # the 'attrs' it's not an tag, but
+            # an actual text
             if not (hasattr(element, 'attrs')):
+                # therefore, return it
                 return element
 
 page = recover_page(URL, HEADERS)
