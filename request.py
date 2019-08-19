@@ -3,6 +3,7 @@ import json
 import sys
 import subprocess
 import web_parser
+
 def extract_values(obj, key):
     """Pull all values of specified key from nested JSON."""
     arr = []

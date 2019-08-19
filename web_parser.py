@@ -3,7 +3,7 @@ from HttpExceptions import *
 from bs4 import BeautifulSoup
 import sys
 import csv
-
+from unidecode import unidecode
 MAX_TRIES = 10
 
 # The headers are the same for all connections
@@ -95,39 +95,39 @@ class WebParser():
             return
         parsed_html = BeautifulSoup(page, features="html.parser")
         try:
-            titulo = recover_element(parsed_html, {'id': 'lblTitulo'})
+            titulo = unidecode(recover_element(parsed_html, {'id': 'lblTitulo'}))
         except Exception:
             titulo = ''
         try:
-            descricao = recover_element(parsed_html, {'id': 'lblDescricao'})
+            descricao = unidecode(recover_element(parsed_html, {'id': 'lblDescricao'}))
         except Exception:
             descricao = ''
         try:
-            ano = recover_element(parsed_html, {'id': 'lblAno'})
+            ano = unidecode(recover_element(parsed_html, {'id': 'lblAno'}))
         except Exception:
             ano = ''
         try:
-            autores = recover_element(parsed_html, {'id': 'lblAutores'})
+            autores = unidecode(recover_element(parsed_html, {'id': 'lblAutores'}))
         except Exception:
             autores = ''
         try:
-            paginas = recover_element(parsed_html, {'id': 'lblPaginas'})
+            paginas = unidecode(recover_element(parsed_html, {'id': 'lblPaginas'}))
         except Exception:
             paginas = ''
         try:
-            isbn = recover_element(parsed_html, {'id': 'lblISBN'})
+            isbn = unidecode(recover_element(parsed_html, {'id': 'lblISBN'}))
         except Exception:
             isbn = ''
         try:
-            idioma = recover_element(parsed_html, {'id': 'lblIdioma'})
+            idioma = unidecode(recover_element(parsed_html, {'id': 'lblIdioma'}))
         except Exception:
             idioma = ''
         try:
-            src = recover_element(parsed_html, {'id': 'imgFoto'}, 'src')
+            src = unidecode(recover_element(parsed_html, {'id': 'imgFoto'}, 'src'))
         except Exception:
             src = ''
 
-        with open('complete.csv', 'a') as complete:
+        with open('complete_sem_acento.csv', 'a') as complete:
             writer = csv.writer(complete)
             writer.writerow([self.book_cutter,
                              titulo,

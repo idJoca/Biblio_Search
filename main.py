@@ -21,7 +21,7 @@ index = 0
 def call_request(book_name, book_cutter):
     subprocess.Popen('python request.py ' + str(book_name) + " " + str(book_cutter))
 
-with open('complete.csv') as complete:
+with open('complete_sem_acento.csv') as complete:
     reader = csv.reader(complete)
     row_count = sum(1 for row in reader)
     last_index = (row_count - 1) / 2
