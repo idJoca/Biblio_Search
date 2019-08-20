@@ -84,10 +84,11 @@ def recover_element(parsed_html, search_attrs, wanted_attr=None):
 
 class WebParser():
 
-    def __init__(self, book_id, book_cutter):
+    def __init__(self, book_id, book_cutter, file_path):
         # The URL used to download the page and parse it
         self.url = "http://www.biblioceeteps.com.br/acervo/documento/detalhes/" + str(book_id)
         self.book_cutter = book_cutter
+        self.file_path = file_path
 
     def run(self):
         page = recover_page(self.url, HEADERS)
@@ -95,39 +96,39 @@ class WebParser():
             return
         parsed_html = BeautifulSoup(page, features="html.parser")
         try:
-            titulo = unidecode(recover_element(parsed_html, {'id': 'lblTitulo'}))
+            titulo = (recover_element(parsed_html, {'id': 'lblTitulo'}))
         except Exception:
             titulo = ''
         try:
-            descricao = unidecode(recover_element(parsed_html, {'id': 'lblDescricao'}))
+            descricao = (recover_element(parsed_html, {'id': 'lblDescricao'}))
         except Exception:
             descricao = ''
         try:
-            ano = unidecode(recover_element(parsed_html, {'id': 'lblAno'}))
+            ano = (recover_element(parsed_html, {'id': 'lblAno'}))
         except Exception:
             ano = ''
         try:
-            autores = unidecode(recover_element(parsed_html, {'id': 'lblAutores'}))
+            autores = (recover_element(parsed_html, {'id': 'lblAutores'}))
         except Exception:
             autores = ''
         try:
-            paginas = unidecode(recover_element(parsed_html, {'id': 'lblPaginas'}))
+            paginas = (recover_element(parsed_html, {'id': 'lblPaginas'}))
         except Exception:
             paginas = ''
         try:
-            isbn = unidecode(recover_element(parsed_html, {'id': 'lblISBN'}))
+            isbn = (recover_element(parsed_html, {'id': 'lblISBN'}))
         except Exception:
             isbn = ''
         try:
-            idioma = unidecode(recover_element(parsed_html, {'id': 'lblIdioma'}))
+            idioma = (recover_element(parsed_html, {'id': 'lblIdioma'}))
         except Exception:
             idioma = ''
         try:
-            src = unidecode(recover_element(parsed_html, {'id': 'imgFoto'}, 'src'))
+            src = (recover_element(parsed_html, {'id': 'imgFoto'}, 'src'))
         except Exception:
             src = ''
 
-        with open('complete_sem_acento.csv', 'a') as complete:
+        with open(self.file_path, 'a', encoding='utf-8') as complete:
             writer = csv.writer(complete)
             writer.writerow([self.book_cutter,
                              titulo,

@@ -4,7 +4,7 @@ from urllib.parse import quote
 
 unique_book_names_csv = []
 unique_book_names_treated_csv = []
-with open('tombo.csv') as tombo:
+with open('ExemplaresDaUnidade.csv', encoding='utf-8') as tombo:
     reader = csv.DictReader(tombo, delimiter=';')
     for row in reader:
         try:
@@ -14,7 +14,7 @@ with open('tombo.csv') as tombo:
                                               .unidecode(row['Título']).lower(), safe='')})
         except GeneratorExit:
             pass
-with open('cutter_name.csv', 'w') as cutter_name_csv:
+with open('cutter_name_fernando.csv', 'w', encoding='utf-8') as cutter_name_csv:
     writer = csv.DictWriter(cutter_name_csv, ['Cutter', 'Titulo'])
     writer.writeheader()
     writer.writerows(unique_book_names_csv)

@@ -40,14 +40,15 @@ HEADERS = {'Accept': 'application/json, text/javascript, */*; q=0.01',
 
 class Request():
 
-    def __init__(self, cutter, book_name):
+    def __init__(self, cutter, book_name, file_path):
         self.cutter = cutter
         self.book_name = book_name
         self.params = '{"paging":{"Take":5,"Skip":0},"sorting":null,"filters":{"unidade":"105"},"value":"' + book_name + '"}'
+        self.file_path = file_path
 
     def run(self):
         response = requests.post(URL, headers=HEADERS, data=self.params)
         response_json = response.json()
         book_id = extract_values(response_json, 'Id')
         # Executes the parser script, passing along the book's id and it's Cutter
-        web_parser.WebParser(book_id[0], self.cutter).run()
+        web_parser.WebParser(book_id[0], self.cutter, self.file_path).run()
