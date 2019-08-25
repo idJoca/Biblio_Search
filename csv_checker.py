@@ -11,3 +11,4 @@ with open('complete.csv', encoding='utf-8') as complete:
             if (row_complete['Cutter'] == row_exemplares['Cutter']):
                 row_complete['CDD'] = row_exemplares['\ufeffCDD']
                 new_checked_csv.append(row_complete)
+        
